@@ -1,0 +1,88 @@
+<View
+    controllerName="com.lab2dev.browserorders.controller.Detail"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+	xmlns:semantic="sap.f.semantic">
+    <Page title="Order Details">
+        <content>
+				<Panel class="sapUiNoContentPadding">
+				<content>
+                    <form:SimpleForm
+                        layout="ResponsiveGridLayout"
+                        columnsL="1"
+                        columnsM="1"
+						id="headInfos"
+						items="{items>/}"
+						>
+                        <form:content>
+                            <Label text="{i18n>Customer}" />
+                            <Text text="{Orders>ShipName}" />
+                            <Label text="{i18n>Ordered}" />
+                            <Text text="{Orders>OrderDate}" />
+                            <Label text="{i18n>Shipped}" />
+                            <Text text="{Orders>ShippedDate}" />
+                        </form:content>
+                    </form:SimpleForm>
+					</content>
+				</Panel>
+            <Panel class="sapUiNoContentPadding" headerText="{i18n>ObjectSupplierTabTitle}">
+                <content>
+                    <form:SimpleForm
+                        minWidth="1024"
+                        maxContainerCols="2"
+                        editable="false"
+                        layout="ResponsiveGridLayout"
+                        labelSpanL="3"
+                        labelSpanM="3"
+                        emptySpanL="4"
+                        emptySpanM="4"
+                        columnsL="1"
+                        columnsM="1">
+                        <form:content>
+                            <Label text="{i18n>ObjectSupplierName}" />
+                            <Text text="{Invoices>ShipName}" />
+                            <Label text="{i18n>ObjectSupplierAddress}" />
+                            <Text text="{Supplier/Address}" />
+                            <Label text="{i18n>ObjectSupplierZipcode} / {i18n>ObjectSupplierCity}" />
+                            <Text text="{Supplier/PostalCode} {Supplier/City}" />
+                            <Label text="{i18n>ObjectSupplierCountry}" />
+                            <Text text="{Supplier/Country}" />
+                        </form:content>
+                    </form:SimpleForm>
+                </content>
+            </Panel>
+            <Table id="orderDetailsTable" class="sapUiResponsiveMargin" width="auto" items="{items>/}">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="{orderID}" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Product Name" />
+                    </Column>
+                    <Column>
+                        <Text text="Unit Price" />
+                    </Column>
+                    <Column>
+                        <Text text="Quantity" />
+                    </Column>
+                    <Column>
+                        <Text text="Total" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+							<cells>
+								<ObjectIdentifier title="{items>Product/ProductName}" />
+								<Text text="R${items>UnitPrice}" />
+								<Text text="{items>Quantity}" />
+								<Text text="R${= (${items>UnitPrice} * ${items>Quantity}).toFixed(2)}" />
+							</cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</View>
